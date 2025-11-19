@@ -17,7 +17,7 @@ small_buddy = img64("assets/body_flag.png")  # 지도 위 작은 캐릭터
 map_img = img64("assets/map_line.png")
 
 # -------------------------------------------------------
-# CSS : 베이지색 전체가 "하나의 네모"로 보이도록 구성
+# CSS : 베이지색 전체가 "하나의 네모" + 애니메이션 적용
 # -------------------------------------------------------
 st.markdown("""
 <style>
@@ -58,7 +58,7 @@ st.markdown("""
     gap: 10px;
 }
 
-/* 왼쪽 정보 */
+/* 왼쪽 정보 영역 */
 .left-area {
     position: relative;
 }
@@ -87,14 +87,16 @@ st.markdown("""
     border-radius: 12px;
 }
 
-/* 지도 위 작은 메디버디 위치 */
+/* ⭐ 작은 메디버디 이동 애니메이션 (척추센터 → 수납) */
+@keyframes moveBuddy {
+    0%   { top: 38%; left: 36%; }   /* 척추센터 */
+    100% { top: 53%; left: 56%; }   /* 수납 */
+}
+
 .small-buddy {
     width: 100px;
     position: absolute;
-
-    /* 수납 위치 근처로 맞춤 (필요하면 미세 조정 가능) */
-    top: 48%;
-    left: 54%;
+    animation: moveBuddy 2.4s infinite alternate ease-in-out;
     transform: translate(-50%, -50%);
 }
 
@@ -103,7 +105,7 @@ st.markdown("""
 
 
 # -------------------------------------------------------
-# HTML
+# HTML : 왼쪽 정보 + 오른쪽 지도 + 애니메이션
 # -------------------------------------------------------
 st.html(f"""
 <div class="map-wrapper">
