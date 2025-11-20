@@ -3,7 +3,7 @@ import base64
 
 st.set_page_config(layout="wide")
 
-# Base64 이미지 인코딩
+# Base64 인코딩 함수
 def get_base64_image(path):
     try:
         with open(path, "rb") as f:
@@ -12,114 +12,110 @@ def get_base64_image(path):
         return None
 
 body_img = get_base64_image("assets/body_stethoscope.png")
-bubble_img = get_base64_image("assets/text_bubble.png")
+speechbubble_img = get_base64_image("assets/text_bubble.png")
 
 # =============================
-# CSS (100vh + 자동반응형 조정)
+# CSS
 # =============================
 st.markdown("""
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
-
 * { font-family: "Jua", sans-serif !important; }
 
 .stApp { background-color: #102A4C !important; }
 
-/* 🔥 전체 화면 1페이지 높이 고정 */
+/* 전체 래퍼: 화면 중앙에 배치 */
 .page-wrapper {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* 메인 콘텐츠 */
-.main-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 60px;
-}
-
-/* 캐릭터 이미지 반응형 */
-.character-img {
-    width: 30vw;      /* 화면 너비의 30% */
-    max-width: 350px; /* 너무 커지지 않게 제한 */
-    height: auto;
-}
-
-/* 말풍선 박스 */
-.bubble-wrap {
+    width: 80vw;
+    height: 75vh;
     position: relative;
-    width: 45vw;
-    max-width: 650px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 좌측 하단 캐릭터 */
+.character-img {
+    position: absolute;
+    bottom: 0%;
+    left: 5%;
+    width: 60vw;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: -100px;
+}
+
+/* 우측 상단 말풍선 */
+.speech-wrapper {
+    position: absolute;
+    top: 0%;
+    right: 30%;
+    width: 33vw;
+    max-width: 420px;
+    margin-top: -200px;
 }
 
 /* 말풍선 이미지 */
-.bubble-img {
-    width: 100%;
+.speech-img {
+    width: 95vw;
+    max-width: 950px;
     height: auto;
 }
 
-/* 말풍선 안 텍스트 */
-.bubble-text {
+/* 말풍선 내부 텍스트 */
+.speech-text {
     position: absolute;
-    top: 18%;
-    left: 12%;
-    width: 75%;
-    font-size: 1.6vw;   /* 화면 기반 반응형 폰트 */
-    max-font-size: 38px;
-    line-height: 1.6;
-    color: black;
+    top: 23%;
+    left: 55%;
+    width: 120%;
+    font-size: 2.6rem;
+    line-height: 1.35;
+    color: #0E2C55;
+    text-align: center;
+    margin-top: 100px;
 }
 
-/* 음성 안내 텍스트 */
-.voice-text {
-    margin-top: 20px;
-    font-size: 1.2vw;
-    color: #EAF4FF;
+/* 말풍선 하단 텍스트 추가 */
+.speech-text-bottom {
+    position: absolute;
+    top: 75%;         /* 말풍선 하단 위치 조정 */
+    left: 25%;
+    width: 100%;
+    font-size: 2.0rem;
+    line-height: 1.4;
+    color: #FFFFFF;  
+    text-align: center;
+    margin-top: 100px;
 }
-
-.voice-text b { color: #89D0FF; }
 
 </style>
 """, unsafe_allow_html=True)
 
 # =============================
-# HTML (100vh 안에 렌더)
+# HTML
 # =============================
 st.html(f"""
 <div class="page-wrapper">
 
-    <div class="main-box">
+    <!-- 좌측 하단 캐릭터 -->
+    <img src="data:image/png;base64,{body_img}" class="character-img">
 
-        <!-- 캐릭터 -->
-        <div>
-            <img src="data:image/png;base64,{body_img}" class="character-img">
+    <!-- 우측 상단 말풍선 + 텍스트 -->
+    <div class="speech-wrapper">
+        <img src="data:image/png;base64,{speechbubble_img}" class="speech-img">
+        <div class="speech-text">
+            안녕하세요!<br>
+            저는 메디버디입니다.<br><br>
+            병원에서 길을 안내해드려요<br>
+            저에게 말을 걸어주세요
         </div>
+    </div>
 
-        <!-- 말풍선 -->
-        <div>
-            <div class="bubble-wrap">
-                <img src="data:image/png;base64,{bubble_img}" class="bubble-img">
-
-                <div class="bubble-text">
-                    안녕하세요!<br>
-                    저는 메디버디입니다.<br><br>
-                    병원에서 길을 안내해드려요<br>
-                    저에게 말을 걸어주세요
-                </div>
-            </div>
-
-            <div class="voice-text">
-                저는 <b>음성으로</b> 말해드릴 수 있어요!<br>
-                “메디버디, 약에 대해 궁금한게 있어!”<br>
-                “메디버디, 방사선실까지 안내해줘”
-            </div>
-
-        </div>
-
+    <div class="speech-text-bottom">
+        저는 음성으로 알아들을 수 있어요!<br>
+        "메디버디, 약에 대해 궁금한게 있어"<br>
+        "메디버디, 방사선실까지 안내해줘"
     </div>
 
 </div>
