@@ -11,7 +11,7 @@ def get_base64_image(path):
     except:
         return None
 
-body_img = get_base64_image("assets/body_stethoscope.png")
+body_img = get_base64_image("assets/body_book.png")
 speechbubble_img = get_base64_image("assets/text_bubble.png")
 
 # =============================
@@ -39,9 +39,9 @@ st.markdown("""
 .character-img {
     position: absolute;
     bottom: 0%;
-    left: 5%;
-    width: 60vw;
-    max-width: 600px;
+    left: 20%;
+    width: 32vw;
+    max-width: 380px;
     height: auto;
     margin-bottom: -100px;
 }
@@ -58,33 +58,20 @@ st.markdown("""
 
 /* 말풍선 이미지 */
 .speech-img {
-    width: 95vw;
-    max-width: 950px;
+    width: 90vw;
+    max-width: 900px;
     height: auto;
 }
 
 /* 말풍선 내부 텍스트 */
 .speech-text {
     position: absolute;
-    top: 23%;
-    left: 55%;
-    width: 120%;
+    top: 25%;
+    left: 60%;
+    width: 100%;
     font-size: 2.6rem;
     line-height: 1.35;
     color: #0E2C55;
-    text-align: center;
-    margin-top: 100px;
-}
-
-/* 말풍선 하단 텍스트 추가 */
-.speech-text-bottom {
-    position: absolute;
-    top: 75%;         /* 말풍선 하단 위치 조정 */
-    left: 25%;
-    width: 100%;
-    font-size: 2.0rem;
-    line-height: 1.4;
-    color: #FFFFFF;  
     text-align: center;
     margin-top: 100px;
 }
@@ -105,17 +92,10 @@ st.html(f"""
     <div class="speech-wrapper">
         <img src="data:image/png;base64,{speechbubble_img}" class="speech-img">
         <div class="speech-text">
-            안녕하세요!<br>
-            저는 메디버디입니다.<br><br>
-            병원에서 길을 안내해드려요<br>
-            저에게 말을 걸어주세요
+            제가 알지 못하는 정보에요<br>
+            조금 더 공부해볼게요!<br><br>
+            다른 질문이 있으실까요?
         </div>
-    </div>
-
-    <div class="speech-text-bottom">
-        저는 음성으로 알아들을 수 있어요!<br>
-        "메디버디, 약에 대해 궁금한게 있어"<br>
-        "메디버디, 방사선실까지 안내해줘"
     </div>
 
 </div>
